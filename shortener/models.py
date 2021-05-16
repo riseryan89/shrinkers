@@ -13,9 +13,9 @@ class PayPlan(models.Model):
 
 
 class Users(AbstractUser):
+    pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING, null=True)
+
+
+class UserDetail(models.Model):
+    user = models.OneToOneField(Users, on_delete=models.CASCADE)
     pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING)
-
-
-# class UserDetail(models.Model):
-#     user = models.OneToOneField(U, on_delete=models.CASCADE)
-#     pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING)
