@@ -12,6 +12,22 @@ def index(request):
     return render(request, "base.html", {"welcome_msg": f"Hello {email}", "hello": "world"})
 
 
+def login(request):
+    return render(request, "login.html", {})
+
+
+def dashboard(request):
+    return render(request, "dashboard.html", {})
+
+
+def move(request, id):
+    return redirect("https://fastcampus.co.kr/dev_online_pyweb", permanent=True)
+
+
+def url_manage(request):
+    return render(request, "url_manage.html", {})
+
+
 @csrf_exempt
 def get_user(request, user_id):
     print(user_id)
@@ -25,4 +41,4 @@ def get_user(request, user_id):
         if username:
             user = Users.objects.filter(pk=user_id).update(username=username)
 
-        return JsonResponse(dict(msg="You just reached with Post Method!"))
+        return JsonResponse(status=201, data=dict(msg="You just reached with Post Method!"), safe=False)

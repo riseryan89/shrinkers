@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>FastCampus Django</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-  <link href="https://getbootstrap.com/docs/5.0/examples/features/features.css" rel="stylesheet">
+  
 </head>
 <body>
   <header class="p-3 bg-dark text-white">
@@ -28,8 +27,8 @@
         </form>
 
         <div class="text-end">
-          <a class="btn btn-outline-light me-2" href="{% url 'login'%}">Login</a>
-          <a class="btn btn-warning">Sign-up</a>
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
         </div>
       </div>
     </div>
@@ -40,18 +39,17 @@
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4">빠르게 그리고 쉽게 URL을 줄여보세요. 단축 URL 생성, 만료, 삭제 등 관리를 자유롭게 할수 있습니다.<br> 오늘 무료로 시작하세요!</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <a type="button" class="btn btn-primary btn-lg px-4 gap-3">로그인</a>
-        <a type="button" class="btn btn-outline-secondary btn-lg px-4">테스트 하기</a>
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">로그인</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">테스트 하기</button>
       </div>
-    </div>  
+    </div>
   </div>
-  
+  <hr>
   <div class="container py-3" id="try_me">
-    <hr>
     <header>
-      <div class="pricing-header p-3 mt-5 pb-md-4 mx-auto text-center">
-        <div><h1 class="fw-bold">Try Me!</h1></div>
-        <div><p class="fs-5 text-muted">1시간 동안 살아있는 단축 URL을 만들어 보세요!<br> HTTP 상태코드 301 REDIRECT를 사용하여 검색엔진에서 검색이 되는 링크 입니다!</p></div>
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <div><h1 class="display-4 fw-normal">Try Me!</h1></div>
+        <div><p class="fs-5 text-muted">1시간 동안 살아있는 단축 URL을 만들어 보세요! HTTP 상태코드 301 REDIRECT를 사용하여 검색엔진에서 검색이 되는 링크 입니다!</p></div>
       </div>
     </header>
     
@@ -61,75 +59,18 @@
           <form class="card p-2">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Your Long URL">
-              <button type="button" class="btn btn-secondary" @click="make_url">Shrink!</button>
+              <button type="submit" class="btn btn-secondary">Shrink!</button>
             </div>
           </form>
         </div>
       </div>
-      <div class="text-center" v-if="done">
-        <span>생성한 URL : </span>
-        <span class="text-primary"><a href="http://tuus.local:8000/a/ei2jfh" target="_blank">http://tuus.local:8000/a/ei2jfh</a></span>
-      </div>
     </main>
   </div>
-  
-  <div class="container px-4 py-5" id="custom-cards">
-    <hr>
-    <header>
-      <div class="pricing-header p-3 mt-5 pb-md-4 mx-auto text-center">
-        <h1 class="fw-bold">What You Get</h1>
-        <p class="fs-5 text-muted">Fast Shrink Hero와 함께라면, 여러분은 이런것을 얻으실 수 있어요!</p>
-      </div>
-    </header>
-
-    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-      <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-1.jpg');">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h2 class="pt-5 mt-5 mb-4 lh-1 fw-bold">Short URL, Long Lifetime</h2>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'logo.png' %}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-2.jpg');">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h3 class="pt-5 mt-5 mb-4 lh-1 fw-bold">짧지만 강력한 단축 URL 서비스, QR 부터 SNS 까지</h3>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'logo.png' %}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-3.jpg');">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-            <h3 class="pt-5 mt-5 mb-4 lh-1 fw-bold">링크 만료, 수정, 삭제, 생성을 자유롭게 API로!</h3>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'logo.png' %}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+  <hr>
   <div class="container py-3" id="pricing">
-    <hr>
     <header>
-      <div class="pricing-header p-3 mt-5 pb-md-4 mx-auto text-center">
-        <h1 class="fw-bold">Pricing</h1>
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Pricing</h1>
         <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
       </div>
     </header>
@@ -239,30 +180,4 @@
     </footer>
   </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
-<script>
-let vm = new Vue({
-    delimiters: ['[[', ']]'],
-    el: '#try_me',
-    data: {
-      done: false
-    },
-    mounted() {
-    },
-    methods: {
-      make_url: function() {
-        $("#try_me").LoadingOverlay("show");
-        setTimeout(function () {
-          $("#try_me").LoadingOverlay("hide");
-          vm.done = true;
-        }, 1500);
-      }
-    },
-    filters: {
-      tc: function (v) {
-        return !v ? v : v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      },
-    }
-});
-</script>
 </html>

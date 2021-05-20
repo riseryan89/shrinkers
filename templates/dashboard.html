@@ -1,0 +1,155 @@
+{% extends 'dashboard_base.html' %}
+{% load static %} 
+{% block header %}
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.0/examples/dashboard/dashboard.css" rel="stylesheet">
+  <style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+{% endblock header %}
+
+
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    {% include "sidebar.html" with dashboard_="active"%}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand"><div class=""></div></div>
+        <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
+      </div>
+      <div
+        class="
+          d-flex
+          justify-content-between
+          flex-wrap flex-md-nowrap
+          align-items-center
+          pt-3
+          pb-2
+          mb-3
+          border-bottom
+        "
+      >
+        <h1 class="h2">최근 1주일 대시보드</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              공유
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              다운로드
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary dropdown-toggle"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-calendar"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            최근 7일
+          </button>
+        </div>
+      </div>
+
+      <canvas
+        class="my-4 w-100 chartjs-render-monitor"
+        id="myChart"
+        width="1236"
+        height="520"
+        style="display: block; height: 260px; width: 618px"
+      ></canvas>
+
+      <h2>Incoming Source</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>최다 방문 소스</th>
+              <th>총 방문수</th>
+              <th>최다 방문 국가</th>
+              <th>커스텀 태그</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2021/05/22</td>
+              <td>Instagram</td>
+              <td>12,037</td>
+              <td>대한민국</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021/05/21</td>
+              <td>이메일</td>
+              <td>24,092</td>
+              <td>대한민국</td>
+              <td>12-newletter</td>
+            </tr>
+            <tr>
+              <td>2021/05/20</td>
+              <td>Instagram</td>
+              <td>23,489</td>
+              <td>대한민국</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021/05/19</td>
+              <td>https://fastcampus.com</td>
+              <td>24,003</td>
+              <td>대한민국</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021/05/18</td>
+              <td>이메일</td>
+              <td>18,483</td>
+              <td>대한민국</td>
+              <td>11-newletter</td>
+            </tr>
+            <tr>
+              <td>2021/05/17</td>
+              <td>Facebook</td>
+              <td>21,345</td>
+              <td>대한민국</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021/05/16</td>
+              <td>Facebook</td>
+              <td>15,339</td>
+              <td>대한민국</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com/docs/5.0/examples/dashboard/dashboard.js"></script>
+  
+
+{% endblock %}

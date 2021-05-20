@@ -1,0 +1,172 @@
+{% extends 'dashboard_base.html' %}
+{% load static %} 
+{% block header %}
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.0/examples/dashboard/dashboard.css" rel="stylesheet">
+  <style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+{% endblock header %}
+
+
+
+{% block content %}
+<html lang="en"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.83.1">
+    <title>Checkout example · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+  </head>
+  <body class="bg-light">
+    
+<div class="container-fluid"  id="try_me">
+  <div class="row">
+    {% include "sidebar.html" with url_manage_="active"%}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="{% static 'logo.png' %}" alt="" width="72" height="72">
+      <h2>URL 관리</h2>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-12">
+        <h4 class="mb-3">등록된 단축 URL</h4>
+        <div>
+            <table class="table align-middle text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">생성일</th>
+                        <th scope="col">단축URL</th>
+                        <th scope="col">타겟URL</th>
+                        <th scope="col">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="done">
+                        <td>2021/05/18</td>
+                        <td><a href="https://www.google.com/search?q=fastcampus&source=hp&ei=UO2kYI_NLJCF0wSDuqOICA&iflsig=AINFCbYAAAAAYKT7YC622bKbdZRt5lMegJF_d4HJeELf&oq=fast&gs_lcp=Cgdnd3Mtd2l6EAMYADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAA6CAgAELEDEIMBOgUIABCxAzoECAAQCjoECAAQA1DrB1iVGWC4K2gDcAB4AIABaIgBugOSAQM0LjGYAQCgAQGqAQdnd3Mtd2l6&sclient=gws-wiz#scso=_Vu2kYNK9JoWJr7wP7YKGoAM26:101" target="_blank">http://tuus.local:8000/a/zpek29</a></td>
+                        <td>https://www.google.com/search?q=fastcamp....<br><img src="https://seeklogo.com/images/N/new-google-favicon-logo-5E38E037AF-seeklogo.com.png" width="15"> fastcampus - Google 검색</td>
+                        <td>관리 수정 삭제</td>
+                    </tr>
+                    <tr>
+                        <td>2021/05/14</td>
+                        <td><a href="#">http://tuus.local:8000/a/42j09g</a></td>
+                        <td>https://naver.com<br><img src="https://naver.com/favicon.ico?1" width="15"> NAVER</td>
+                        <td>관리 수정 삭제</td>
+                    </tr>
+                    <tr>
+                        <td>2021/05/13</td>
+                        <td><a href="#">http://tuus.local:8000/a/ei2jfh</a></td>
+                        <td>https://fastcampus.co.kr/dev_online_pyweb<br><img src="https://asset.fastcampus.co.kr/favicon/icon-180.png" width="15"> 파이썬 웹 개발 올인원 패키지 Online. | 패스트캠퍼스</td>
+                        <td>관리 수정 삭제</td>
+                    </tr>
+                    <tr>
+                        <td>2021/05/12</td>
+                        <td><a href="#">http://tuus.local:8000/a/k4399h</a></td>
+                        <td>https://daum.net<br><img src="https://www.daum.net/favicon.ico" width="15"> DAUM</td>
+                        <td>관리 수정 삭제</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <hr>
+  <div class="container py-3">
+    <header>
+      <div class="pricing-header p-3 mt-5 pb-md-4 mx-auto text-center">
+        <div><h1 class="fw-bold">새로운 URL 단축</h1></div>
+      </div>
+    </header>
+    
+    <main>
+      <div class="d-flex justify-content-center  row-cols-2 row-cols-md-1 mb-3 text-center">
+        <div class="col">
+          <form class="card p-2">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Your Long URL">
+              <button type="button" class="btn btn-secondary" @click="make_url">Shrink!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-center" v-if="done">
+        <span>생성한 URL : </span>
+        <span class="text-primary"><a href="http://tuus.local:8000/a/ei2jfh" target="_blank">http://tuus.local:8000/a/zpek29</a></span>
+      </div>
+    </main>
+  </div>   
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+<script>
+let vm = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#try_me',
+    data: {
+      done: false
+    },
+    mounted() {
+    },
+    methods: {
+      make_url: function() {
+        $("#try_me").LoadingOverlay("show");
+        setTimeout(function () {
+          $("#try_me").LoadingOverlay("hide");
+          vm.done = true;
+        }, 1500);
+      }
+    },
+    filters: {
+      tc: function (v) {
+        return !v ? v : v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+    }
+});
+</script>
+
+{% endblock %}
