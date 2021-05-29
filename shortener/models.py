@@ -13,6 +13,7 @@ class PayPlan(models.Model):
 
 
 class Users(AbstractUser):
+    full_name = models.CharField(max_length=100, null=True)
     pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING, null=True)
 
 
