@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>FastCampus Django</title>
-</head>
-<body>
-    {{ user }} <br>
-    {% for i in params %}
-    {{i}}<br>
+  <head>
+    <meta charset="UTF-8" />
+    <title>FastCampus Django</title>
+  </head>
+  <body>
+    {{ user }} <br />
+    {% for i in params %} {{i}}<br />
     {% endfor %}
-</body>
+    <a href="{% url 'register' %}">회원가입</a>
+  </body>
 </html>

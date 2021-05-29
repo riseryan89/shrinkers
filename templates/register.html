@@ -11,5 +11,6 @@
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">가입하기</button>
     </form>
+    <a href="{% url 'index' %}">홈으로</a>
   </body>
 </html>
