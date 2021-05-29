@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FastCampus Django</title>
+  </head>
+  <body>
+    <h2>로그인</h2>
+    <h4>{%if msg%}{{msg}}{%endif%}</h4>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">로그인</button>
+    </form>
+    <p>
+      <a href="{% url 'index' %}">홈으로</a>
+      <a href="{% url 'register' %}">회원가입</a>
+    </p>
+  </body>
+</html>
