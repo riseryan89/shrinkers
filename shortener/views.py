@@ -1,10 +1,12 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm
 from django.http.response import JsonResponse
 from shortener.models import Users
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from shortener.forms import RegisterForm
 from django.contrib.auth import login, authenticate, logout
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -56,7 +58,6 @@ def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(request, request.POST)
         msg = "가입되어 있지 않거나 로그인 정보가 잘못 되었습니다."
-        print(form.is_valid)
         if form.is_valid():
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password")
@@ -73,3 +74,13 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("index")
+
+
+@login_required
+def list_view(request):
+    page = int(request.GET.get("p", 1))
+    users = Users.objects.all().order_by("-id")
+    paginator = Paginator(users, 1)
+    users = paginator.get_page(page)
+
+    return render(request, "boards.html", {"users": users})
