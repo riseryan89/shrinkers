@@ -80,7 +80,7 @@ def logout_view(request):
 def list_view(request):
     page = int(request.GET.get("p", 1))
     users = Users.objects.all().order_by("-id")
-    paginator = Paginator(users, 1)
+    paginator = Paginator(users, 10)
     users = paginator.get_page(page)
 
     return render(request, "boards.html", {"users": users})

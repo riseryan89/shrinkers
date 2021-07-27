@@ -1,52 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>FastCampus Django</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h2>유저 리스트</h2>
     <h4>{%if msg%}{{msg}}{%endif%}</h4>
-    <table>
+    <table class="table table-hover nowrap text-center font-size-12">
       <thead>
+        <th>ID</th>
         <th>유저이름</th>
         <th>이메일</th>
         <th>가입일</th>
         <th>페이플랜</th>
+        <th>가격</th>
       </thead>
       {% for u in users %}
       <tr>
+        <td>{{u.id}}</td>
         <td>{{u.username}}</td>
         <td>{{u.email}}</td>
         <td>{{u.date_joined}}</td>
         <td>{{u.pay_plan.name}}</td>
+        <td>{{u.pay_plan.price}}</td>
       </tr>
       {% endfor %}
     </table>
-    <nav>
-        <ul>
-            {% if users.has_previous %}                         
-            <li>
-                <a href="?p={{users.previous_page_number }}">이전으로</a>
-            </li>
-            {% else %}
-            <li>
-                <a href="#">이전으로</a>
-            </li>
-            {% endif %}
-            <li>
-                <a href="#">{{users.number}}/{{users.paginator.num_pages}}</a>
-            </li>
-            {% if users.has_next %}
-            <li>
-                <a href="?p={{users.next_page_number }}">다음으로</a>
-            </li>
-            {% else %}
-            <li>
-                <a href="#">다음으로</a>
-            </li>
-            {% endif %}
-        </ul>
+
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if users.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{users.previous_page_number }}">이전으로</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link" href="#">이전으로</a>
+        </li class="page-item">
+        {% endif %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{users.number|add:1 }}">{{users.number}}/{{users.paginator.num_pages}}</a>
+        </li>
+        {% if users.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{users.next_page_number }}">다음으로</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link" href="#">다음으로</a>
+        </li>
+        {% endif %}
+      </ul>
     </nav>
     <p>
       <a href="{% url 'index' %}">홈으로</a>
