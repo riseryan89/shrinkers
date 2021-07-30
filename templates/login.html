@@ -86,8 +86,8 @@
               {% if msg %}
               <p class="text-center text-sm text-danger">{{ msg }}</p>
               {% endif %}
-              {% if is_ok %}
-              <p class="text-center text-sm text-success">로그인 성공({{ user.username }})</p>
+              {% if is_ok or user.is_authenticated %}
+              <p class="text-center text-sm text-success">로그인 성공({{ user.username }}) <a class="text-primary" href="{% url 'logout' %}">로그아웃</a></p>
               {% endif %}
               <form method="post">
                 {% csrf_token %}
@@ -96,7 +96,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-user-run"></i></span>
                     </div>
-                    {{ form.username }}
+                    {{ form.email }}
                   </div>
                 </div>
                 <div class="form-group">
@@ -108,8 +108,8 @@
                   </div>
                 </div>
                 <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
+                  {{ form.remember_me }}
+                  <label class="custom-control-label" for="_loginRememberMe">
                     <span>로그인 유지하기</span>
                   </label>
                 </div>
