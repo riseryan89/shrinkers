@@ -21,6 +21,13 @@ def index(request):
     return render(request, "base.html", {"welcome_msg": "Hello FastCampus!"})
 
 
+def url_list(request):
+    return render(
+        request,
+        "url_list.html",
+    )
+
+
 @csrf_exempt
 def get_user(request, user_id):
     print(user_id)
@@ -66,7 +73,7 @@ def login_view(request):
             try:
                 user = Users.objects.get(email=email)
             except Users.DoesNotExist:
-                msg = "올바른 유저ID와 패스워드를 입력하세요."
+                pass
             else:
                 if user.check_password(raw_password):
                     msg = None
@@ -75,7 +82,7 @@ def login_view(request):
                     request.session["remember_me"] = remember_me
 
                     # if not remember_me:
-                    #     request.session.set_expirey(0)
+                    #     request.session.set_expiry(0)
     else:
         msg = None
         form = LoginForm()

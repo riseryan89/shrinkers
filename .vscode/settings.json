@@ -1,4 +1,10 @@
 {
-    "editor.formatOnSave": true,
-    "python.formatting.provider": "black"
+    "[python]": {
+        "editor.formatOnSave": true,
+    },
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "119",
+    ]
 }

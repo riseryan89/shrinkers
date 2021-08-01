@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}URL 리스트{% endblock %}
+{% block main_breadscumb%}대시보드{% endblock %}
+{% block sub_breadscumb_highlight %}URL List{% endblock%}
+{% block sub_breadscumb %}URL 리스트{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header border-0">
+        <div class="row align-items-center"></div>
+      </div>
+      <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">별칭</th>
+              <th scope="col">이동 URL</th>
+              <th scope="col">단축 URL</th>
+              <th scope="col">생성채널</th>
+              <th scope="col">생성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">FastCampus</th>
+              <td>fastcampus.co.kr</td>
+              <td>/a/123456</td>
+              <td>웹사이트</td>
+              <td>2021년 1월 1일</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
