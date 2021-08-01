@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}단축 URL 생성{% endblock %}
+{% block sub_breadscumb %}URL 생성{% endblock %}
+{% block main_breadscumb%}URL 리스트{% endblock %}
+{% block sub_breadscumb_highlight %}단축 URL {% endblock%}
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header border-0">
+        <div class="row align-items-center">
+            {% if is_update %}
+            <h3>{{form.nick_name.value}} 수정하기</h5>
+            {% else %}
+            <h3>단축 URL 만들기</h5>
+            {% endif %}
+        </div>
+      </div>
+      <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                {% for f in form.visible_fields %}
+                <div class="col-6">
+                    <label>{{ f.label }}</label>
+                    {{ f }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success mt-5">
+                    {% if is_update %}
+                        {{form.nick_name.value}} 수정
+                    {% else %}
+                        생성
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
