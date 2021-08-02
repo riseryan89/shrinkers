@@ -13,15 +13,10 @@ from django.contrib import messages
 
 
 def index(request):
-    user = Users.objects.filter(id=request.user.id).first()
-    email = user.email if user else "Anonymous User!"
-    print("Logged in?", request.user.is_authenticated)
-    if request.user.is_authenticated is False:
-        email = "Anonymous User!"
-    print(email)
-    return render(request, "base.html", {"welcome_msg": "Hello FastCampus!"})
+    return render(request, "base.html")
 
 
+@login_required
 def url_list(request):
     get_list = ShortenedUrls.objects.order_by("-created_at").all()
     return render(request, "url_list.html", {"list": get_list})
