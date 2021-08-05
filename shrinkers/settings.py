@@ -33,7 +33,6 @@ else:
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 AUTH_USER_MODEL = "shortener.Users"
 INSTALLED_APPS = [
@@ -69,7 +68,7 @@ MIDDLEWARE = [
 ]
 
 # if DEBUG:
-#     INSTALLED_APPS += [
+#     MIDDLEWARE += [
 #         "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
 #     ]
 

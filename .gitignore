@@ -1,5 +1,6 @@
 /venv/
 db.sqlite3
 /shortener/migrations/
-/shortener/__pycache__/
+__pycache__/
+/shrinkers/__pycache__
 .DS_Store
