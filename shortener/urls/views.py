@@ -1,3 +1,4 @@
+from shortener.utils import url_count_changer
 from django.contrib import messages
 from shortener.forms import UrlCreateForm
 from django.shortcuts import redirect, render
@@ -37,7 +38,12 @@ def url_change(request, action, url_id):
             else:
                 if action == "delete":
                     msg = f"{url_data.first().nick_name} 삭제 완료!"
-                    url_data.delete()
+                    try:
+                        url_data.delete()
+                    except Exception as e:
+                        print(e)
+                    else:
+                        url_count_changer(request, False)
                     messages.add_message(request, messages.INFO, msg)
                 elif action == "update":
                     msg = f"{url_data.first().nick_name} 수정 완료!"
