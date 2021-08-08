@@ -31,9 +31,14 @@
           {% for l in list%}
             <tr>
               <th scope="row">{{ l.nick_name }}</th>
+
               <td>{{ l.target_url }}</td>
-              <td>{{ l.shortened_url }}</td>
-              <td>{{ l.created_via }}</td>
+              <td>
+                <a href="/{{ l.prefix }}/{{ l.shortened_url }}" target="_blank">
+                  {{ request.get_host }}/{{ l.prefix }}/{{ l.shortened_url }}
+                </a>
+              </td>
+              <td>{{ l.create_via }}</td>
               <td>{{ l.created_at }}</td>
               <td>
                 <form action="/urls/delete/{{ l.id }}" method="POST">

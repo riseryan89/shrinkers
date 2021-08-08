@@ -1,9 +1,22 @@
 from shortener.utils import url_count_changer
 from django.contrib import messages
 from shortener.forms import UrlCreateForm
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from shortener.models import ShortenedUrls
 from django.contrib.auth.decorators import login_required
+
+
+def url_redirect(request, prefix, url):
+    print(prefix, url)
+    get_url = get_object_or_404(ShortenedUrls, prefix=prefix, shortened_url=url)
+    is_permanent = False
+    target = get_url.target_url
+    if get_url.creator.organization:
+        is_permanent = True
+
+    if not target.startswith("https://") and not target.startswith("http://"):
+        target = "https://" + get_url.target_url
+    return redirect(target, permanent=is_permanent)
 
 
 def url_list(request):
