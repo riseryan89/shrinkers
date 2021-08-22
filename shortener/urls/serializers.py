@@ -32,11 +32,10 @@ class UrlCreateSerializer(serializers.Serializer):
     category = serializers.IntegerField(required=False)
 
     def create(self, request, data, commit=True):
-        print(data)
         instance = ShortenedUrls()
         instance.creator_id = request.user.id
         instance.category = data.get("category", None)
-        instance.target_url = data.get("target_url", None).strip()
+        instance.target_url = data.get("target_url").strip()
         if commit:
             try:
                 instance.save()
