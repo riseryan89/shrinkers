@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from shortener.urls.views import url_redirect
+from shortener.urls.urls import router as url_router
 from shrinkers.settings import DEBUG
 
 # if DEBUG:
@@ -22,10 +23,12 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shortener.index.urls")),
     path("urls/", include("shortener.urls.urls")),
+    path("api/", include(url_router.urls)),
     path("<str:prefix>/<str:url>", url_redirect),
 ]
 

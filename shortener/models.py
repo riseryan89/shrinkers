@@ -140,6 +140,6 @@ class TrackingParams(TimeStampedModel):
     params = models.CharField(max_length=20)
     
     @classmethod
-    def get_tracking_params(cls, shortened_url_id):
-        return cls.objects.filter(shortened_url_id=shortened_url_id).values_list("params", flat=True)
+    def get_tracking_params(cls, shortened_url_id:int):
+        return TrackingParams.objects.filter(shortened_url_id=shortened_url_id).values_list("params", flat=True)
 
