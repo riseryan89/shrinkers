@@ -22,4 +22,4 @@ class UrlListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShortenedUrls
-        fields = ["id", "nick_name", "prefix", "shortened_url", "creator", "click", "create_via", "expired_at"]
+        fields = "__all__"

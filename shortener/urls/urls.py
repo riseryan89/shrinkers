@@ -7,7 +7,7 @@ from rest_framework import routers
 from shortener.urls.apis import *
 
 router = routers.DefaultRouter()
-router.register(r'urls', UserViewSet)
+router.register(r'urls', UrlListView)
 
 
 urlpatterns = [
