@@ -12,3 +12,6 @@ class Users(Schema):
     id: int
     full_name: str = None
     organization: OrganizationSchema = None
+
+class TelemgramUpdateSchema(Schema):
+    username: str

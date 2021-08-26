@@ -40,6 +40,7 @@ class Organization(TimeStampedModel):
 class Users(models.Model):
     user = models.OneToOneField(U, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, null=True)
+    telegram_username = models.CharField(max_length=100, null=True)
     url_count = models.IntegerField(default=0)
     organization = models.ForeignKey(Organization, on_delete=models.DO_NOTHING, null=True)
 
