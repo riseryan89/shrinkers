@@ -12,6 +12,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
+from django.core.cache import cache
 
 
 class UrlListView(viewsets.ModelViewSet):
@@ -44,18 +45,21 @@ class UrlListView(viewsets.ModelViewSet):
     @renderer_classes([JSONRenderer])
     def destroy(self, request, pk=None):
         # DELETE METHOD
+        
         queryset = self.get_queryset().filter(pk=pk, creator_id=request.user.id)
         print(pk, request.user.id)
         if not queryset.exists():
             raise Http404
-        print(123123)
         queryset.delete()
         url_count_changer(request, False)
         return MsgOk()
 
     def list(self, request):
         # GET ALL
-        queryset = self.get_queryset().filter(creator_id=request.user.id).all()
+        queryset = cache.get('url_list')
+        if not queryset:
+            queryset = self.get_queryset().filter(creator_id=request.user.id).all()
+            cache.set('url_list', queryset, 300)
         serializer = UrlListSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -66,6 +70,7 @@ class UrlListView(viewsets.ModelViewSet):
         new_history.record(request, queryset, {})
         return MsgOk()
 
+    
     @action(detail=True, methods=["get"])
     def get_browser_stats(self, request, pk=None):
         queryset = Statistic.objects.filter(

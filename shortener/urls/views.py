@@ -8,6 +8,8 @@ from shortener.models import ShortenedUrls, Statistic, TrackingParams
 from django.contrib.auth.decorators import login_required
 from ratelimit.decorators import ratelimit
 from datetime import datetime, timedelta
+from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import cache_page
 
 
 @ratelimit(key="ip", rate="3/m")
@@ -29,6 +31,7 @@ def url_redirect(request, prefix, url):
     history.record(request, get_url, custom_params)
 
     return redirect(target, permanent=is_permanent)
+
 
 @login_required
 def url_list(request):
@@ -85,6 +88,8 @@ def url_change(request, action, url_id):
 
     return redirect("url_list")
 
+
+@cache_page(10)
 @login_required
 def statistic_view(request, url_id: int):
     url_info = get_object_or_404(ShortenedUrls, pk=url_id)
