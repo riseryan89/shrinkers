@@ -42,7 +42,9 @@
               <td>[[ l.created_at ]]</td>
               <td>
                 [[ l.click ]] 
-                <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
+                <a :href="'/urls/'+l.id+'/statistic'">
+                  <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
+                </a>
               </td>
               <td>
                   <button  class="btn btn-sm btn-primary">

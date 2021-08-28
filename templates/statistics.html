@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title%}URL 리스트{% endblock %}
-{% block main_breadscumb%}대시보드{% endblock %}
+{% block main_breadscumb%}<a href="/urls/">URL 리스트</a>{% endblock %}
 {% block sub_breadscumb_highlight %}접속통계{% endblock%}
 {% block sub_breadscumb %}{{url.nick_name}}{% endblock %}
 {% block content %}
