@@ -4,3 +4,4 @@ db.sqlite3
 __pycache__/
 /shrinkers/__pycache__
 .DS_Store
+/shrinkers/service_key.json

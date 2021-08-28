@@ -30,7 +30,7 @@ def url_redirect(request, prefix, url):
 
     return redirect(target, permanent=is_permanent)
 
-
+@login_required
 def url_list(request):
     return render(request, "url_list.html", {})
 
@@ -85,7 +85,7 @@ def url_change(request, action, url_id):
 
     return redirect("url_list")
 
-
+@login_required
 def statistic_view(request, url_id: int):
     url_info = get_object_or_404(ShortenedUrls, pk=url_id)
     base_qs = Statistic.objects.filter(shortened_url_id=url_id, created_at__gte=get_kst() - timedelta(days=14))
