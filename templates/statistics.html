@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}URL 리스트{% endblock %}
+{% block main_breadscumb%}대시보드{% endblock %}
+{% block sub_breadscumb_highlight %}접속통계{% endblock%}
+{% block sub_breadscumb %}{{url.nick_name}}{% endblock %}
+{% block content %}
+
+<div class="row" id="vue_div">
+    <div class="col-xl-8">
+        <div class="card bg-default">
+        <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+            <div class="col">
+                <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
+                <h5 class="h3 text-white mb-0">Daily Visits</h5>
+            </div>
+            
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Chart -->
+            <div class="chart">
+            <!-- Chart wrapper -->
+            <canvas id="chart-visits-dark" class="chart-canvas"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card h-100">
+        <div class="card-header border-0">
+            <div class="row align-items-center">
+            <div class="col">
+                <h3 class="mb-0">Browser Usage</h3>
+            </div>
+            <div class="col text-right">
+                <a @click="add_today" class="btn btn-sm btn-primary text-white">Add</a>
+            </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Browser</th>
+                <th scope="col">Visitor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="b in browserStatList">
+                <th scope="row">
+                    [[b.web_browser]]
+                </th>
+                <td>
+                    [[b.count]]
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+    </div>
+
+<script>
+let vm = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#vue_div',
+    data: {
+      url_id: {{url.id}},
+      newUrlTarget: null,
+      browserStatList: []
+    },
+    mounted() {
+      this.draw_visit_chart();
+      this.getBrowserStat();
+    },
+    methods: {
+      draw_visit_chart: function () {
+        var $chart = $('#chart-visits-dark');
+        function init($this) {
+            var salesChart = new Chart($this, {
+                type: 'line',
+                options: {
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                color: Charts.colors.gray[700],
+                                zeroLineColor: Charts.colors.gray[700]
+                            },
+                            ticks: {
+
+                            }
+                        }]
+                    }
+                },
+                data: {
+                    labels: {{date_list|safe|escape}},
+                    datasets: [{
+                        label: 'Clicks',
+                        data: {{click_list|safe|escape}}
+                    }]
+                }
+            });
+            // Save to jQuery object
+            $this.data('chart', salesChart);
+        };
+
+
+        // Events
+
+        if ($chart.length) {
+            init($chart);
+        }
+      },
+      getBrowserStat: function () {
+        axios.get(`/api/urls/${this.url_id}/get_browser_stats/`, 
+        ).then(function (response) {
+          vm.browserStatList = response.data
+        }).catch(function (e) {
+        }).finally(function () {
+        });
+      },
+      add_today: function () {
+        axios.get(`/api/urls/${this.url_id}/add_browser_today/`, 
+        ).then(function (response) {
+        }).catch(function (e) {
+        }).finally(function () {
+            vm.getBrowserStat();
+        });
+      },
+    },
+})
+</script>
+
+
+{% endblock %}

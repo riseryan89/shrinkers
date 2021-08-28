@@ -24,6 +24,7 @@
               <th scope="col">단축 URL</th>
               <th scope="col">생성채널</th>
               <th scope="col">생성일</th>
+              <th scope="col">클릭수</th>
               <th scope="col">액션</th>
             </tr>
           </thead>
@@ -39,6 +40,10 @@
               </td>
               <td>[[ l.create_via ]]</td>
               <td>[[ l.created_at ]]</td>
+              <td>
+                [[ l.click ]] 
+                <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
+              </td>
               <td>
                   <button  class="btn btn-sm btn-primary">
                     수정
@@ -87,20 +92,6 @@ let vm = new Vue({
         }).finally(function () {
           vm.getList();
         });
-      },
-      getCookie: function (name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-          var cookies = document.cookie.split(';');
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-          }
-        }
       }
     },
     filters: {
