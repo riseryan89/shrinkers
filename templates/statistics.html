@@ -4,7 +4,6 @@
 {% block main_breadscumb%}<a href="/urls/">URL 리스트</a>{% endblock %}
 {% block sub_breadscumb_highlight %}접속통계{% endblock%}
 {% block sub_breadscumb %}{{url.nick_name}}{% endblock %}
-{% load cache %}
 
 {% block content %}
 
@@ -29,7 +28,6 @@
         </div>
         </div>
     </div>
-    {% cache 10 stats %}
     
     <div class="col-xl-4">
         <div class="card h-100">
@@ -66,8 +64,8 @@
         </div>
         </div>
     </div>
-    {% endcache %}
-</div>
+    
+    </div>
 
 <script>
 let vm = new Vue({

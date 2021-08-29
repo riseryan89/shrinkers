@@ -1,3 +1,4 @@
+import requests
 from shortener.utils import url_count_changer
 from django.contrib.auth.models import User
 from shortener.models import Users, ShortenedUrls

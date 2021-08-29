@@ -1,3 +1,4 @@
+from shortener.urls.telegram_handler import command_handler
 from django.utils.html import json_script
 from shortener.utils import get_kst, url_count_changer
 from django.contrib import messages
@@ -35,6 +36,7 @@ def url_redirect(request, prefix, url):
 
 @login_required
 def url_list(request):
+    command_handler()
     return render(request, "url_list.html", {})
 
 
@@ -89,7 +91,6 @@ def url_change(request, action, url_id):
     return redirect("url_list")
 
 
-@cache_page(10)
 @login_required
 def statistic_view(request, url_id: int):
     url_info = get_object_or_404(ShortenedUrls, pk=url_id)
