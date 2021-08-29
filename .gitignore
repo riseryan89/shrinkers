@@ -5,3 +5,4 @@ __pycache__/
 /shrinkers/__pycache__
 .DS_Store
 /shrinkers/service_key.json
+/cache_file/

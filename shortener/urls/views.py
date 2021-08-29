@@ -1,5 +1,4 @@
 from shortener.ga import visitors
-from shortener.urls.decorators import admin_only
 from shortener.urls.telegram_handler import command_handler
 from django.utils.html import json_script
 from shortener.utils import get_kst, url_count_changer
@@ -36,7 +35,6 @@ def url_redirect(request, prefix, url):
 
 
 @login_required
-@admin_only
 def url_list(request):
     # command_handler()
     visitors()
@@ -65,7 +63,7 @@ def url_change(request, action, url_id):
     if request.method == "POST":
         url_data = ShortenedUrls.objects.filter(id=url_id)
         if url_data.exists():
-            if url_data.first().creator_id != request.user.id:
+            if url_data.first().creator_id != request.users_id:
                 msg = "자신이 소유하지 않은 URL 입니다."
             else:
                 if action == "delete":

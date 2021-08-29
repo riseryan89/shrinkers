@@ -56,7 +56,7 @@ class UrlCreateForm(forms.ModelForm):
 
     def save(self, request, commit=True):
         instance = super(UrlCreateForm, self).save(commit=False)
-        instance.creator_id = request.user.id
+        instance.creator_id = request.users_id
         instance.target_url = instance.target_url.strip()
         if commit:
             try:
@@ -70,6 +70,6 @@ class UrlCreateForm(forms.ModelForm):
     def update_form(self, request, url_id):
         instance = super(UrlCreateForm, self).save(commit=False)
         instance.target_url = instance.target_url.strip()
-        ShortenedUrls.objects.filter(pk=url_id, creator_id=request.user.id).update(
+        ShortenedUrls.objects.filter(pk=url_id, creator_id=request.users_id).update(
             target_url=instance.target_url, nick_name=instance.nick_name
         )

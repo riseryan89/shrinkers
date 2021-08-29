@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}URL 리스트{% endblock %}
+{% block main_breadscumb%}대시보드{% endblock %}
+{% block sub_breadscumb_highlight %}URL List{% endblock%}
+{% block sub_breadscumb %}URL 리스트{% endblock %}
+{% block content %}
+
+<div class="row" id="vue_div">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header border-0">
+        <a href="{% url 'url_create' %}" class="btn btn-primary btn-sm font-size-12 float-right">
+          추가
+        </a>
+      </div>
+      <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">별칭</th>
+              <th scope="col">이동 URL</th>
+              <th scope="col">단축 URL</th>
+              <th scope="col">생성채널</th>
+              <th scope="col">생성일</th>
+              <th scope="col">클릭수</th>
+              <th scope="col">액션</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="l in urlLists">
+              <th scope="row">[[ l.nick_name ]]</th>
+
+              <td>[[ l.target_url ]] </td>
+              <td>
+                <a :href="'/'+l.prefix+'/'+l.shortened_url" target="_blank">
+                  [[ l.prefix | addressAssembler(l.shortened_url)]]
+                </a>
+              </td>
+              <td>[[ l.create_via ]]</td>
+              <td>[[ l.created_at ]]</td>
+              <td>
+                [[ l.click ]] 
+                <a :href="'/urls/'+l.id+'/statistic'">
+                  <i class="ni ni-chart-bar-32 ml-2" style="cursor: pointer;"></i>
+                </a>
+              </td>
+              <td>
+                  <button  class="btn btn-sm btn-primary">
+                    수정
+                  </button>
+                  <button @click="deleteUrl(l.id)" class="btn btn-sm btn-danger">
+                    삭제
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let vm = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#vue_div',
+    data: {
+      newUrlName: null,
+      newUrlTarget: null,
+      urlLists: []
+    },
+    mounted() {
+      this.getList();
+    },
+    methods: {
+      getList: function () {
+        $("#vue_div").LoadingOverlay("show");
+        axios.get(`/api/urls/`,
+        ).then(function (response) {
+            vm.urlLists = response.data
+        }).catch(function (e) {
+        }).finally(function () {
+          $("#vue_div").LoadingOverlay("hide");
+        });
+      },
+      deleteUrl: function (urlId) {
+        const c = confirm('정말 삭제 하시겠습니까?');
+        if (!c) return;
+        axios.delete(`/api/urls/${urlId}`, {headers: {'X-CSRFToken': Cookies.get('csrftoken')}}
+        ).then(function (response) {
+        }).catch(function (e) {
+        }).finally(function () {
+          vm.getList();
+        });
+      }
+    },
+    filters: {
+      addressAssembler: function(v, arg) {
+        const url = new URL(document.URL);
+        const host = url.host;
+        return `${host}/${v}/${arg}`
+     }
+    }
+})
+</script>
+{% endblock %}
+

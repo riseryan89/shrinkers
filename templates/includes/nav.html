@@ -62,6 +62,14 @@
                   </a>
                 </li>
               </ul>
+              {% if user.is_superuser%}
+              <li class="nav">
+                <a href="{% url 'url_list' %}" class="nav-link">
+                  <span class="sidenav-mini-icon"> <i class='fas fa-angle-up'></i> </span>
+                  <span class="sidenav-normal"> Admin Pages </span>
+                </a>
+              </li>
+              {% endif %}
             </div>
           </li>
         </ul>

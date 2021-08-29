@@ -53,6 +53,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shortener.index.urls")),
     path("urls/", include("shortener.urls.urls")),
+    path("admins/", include("shortener.admins.urls")),
     path("api/", include(url_router.urls)),
     path("ninja-api/", apis.urls),
     path("<str:prefix>/<str:url>", url_redirect),

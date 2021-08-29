@@ -43,8 +43,7 @@ def register(request):
             msg = "회원가입완료"
         return render(request, "register.html", {"form": form, "msg": msg})
     else:
-        form = RegisterForm()
-        return render(request, "register.html", {"form": form})
+        return render(request, "register.html", {})
 
 
 def login_view(request):

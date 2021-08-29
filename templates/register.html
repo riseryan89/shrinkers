@@ -1,16 +1,213 @@
+<!--
+
+=========================================================
+* Impact Design System - v1.0.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/impact-design-system
+* Copyright 2010 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/impact-design-system/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+-->
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>FastCampus Django</title>
-  </head>
-  <body>
-    <h2>회원가입</h2>
-    <h4>{%if msg%}{{msg}}{%endif%}</h4>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">가입하기</button>
-    </form>
-    <a href="{% url 'index' %}">홈으로</a>
-  </body>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>Shrinkers - Register</title>
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
+  <!-- Page plugins -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/fullcalendar/dist/fullcalendar.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendor/sweetalert2/dist/sweetalert2.min.css' %}">
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" type="text/css">
+
+</head>
+<body class="bg-white">
+  <!-- Main content -->
+  <div class="main-content" id="vue_div">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+              <h1 class="text-white">회원가입</h1>
+              <p class="text-lead text-white">Shrinkers에 오신것을 환영합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--9 pb-5 text-gray">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary border border-soft mb-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-center mt-2 mb-3"><small>소셜로 1초만에 가입 하기</small></div>
+              <div class="btn-wrapper text-center">
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="{% static 'assets/img/icons/common/github.svg' %}"></span>
+                  <span class="btn-inner--text">Github</span>
+                </a>
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="{% static 'assets/img/icons/common/google.svg' %}"></span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>이메일 가입</small>
+              </div>
+              <form role="form">
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Name" type="text" v-model="fullName">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Email" type="email" v-model="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Password" type="password" v-model="password">
+                  </div>
+                </div>
+                <div class="row my-4">
+                  <div class="col-12">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                      <input class="custom-control-input" id="customCheckRegister" type="checkbox" v-model="policyAgree">
+                      <label class="custom-control-label" for="customCheckRegister">
+                        <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="button" @click="register" class="btn btn-primary mt-4">Create account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div>
+            <a href="{% url 'login' %}">로그인 하기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="py-5 bg-white" id="footer-main">
+    <div class="container">
+      <div class="row align-items-center justify-content-xl-between">
+        <div class="col-xl-6">
+          <div class="copyright text-center text-xl-left text-muted">
+            &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a> & <a href="https://themesberg.com?ref=creative-tim" class="font-weight-bold ml-1" target="_blank">Themesberg</a>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+            <li class="nav-item">
+              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://themesberg.com" class="nav-link" target="_blank">Themesberg</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.creative-tim.com/license" class="nav-link" target="_blank">License</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
+  <!-- Argon JS -->
+  <script src="{% static 'assets/js/dashboard.js' %}?v=1.2.0"></script>
+  <!-- Demo JS - remove this in your project -->
+  <script src="{% static 'assets/js/demo.min.js' %}"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+ 
+<script>
+let vm = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#vue_div',
+    data: {
+      fullName: "",
+      email: "",
+      password: "",
+      policyAgree: false
+    },
+    methods: {
+      register: function() {
+        const body = {
+          "name": this.fullName,
+          "email": this.email,
+          "password": this.password,
+          "policy": this.policyAgree
+        }
+        axios.post(`/ninja-api/users/register`, body
+        ).then(function (response) {
+          window.location.href = "/";
+        }).catch(function (e) {
+          if (e.response.status === 422) {
+            alert(e.response.data.detail[0].msg);
+          } else {
+            alert(e.response.data.msg);
+          }
+          console.log(e.response.status)
+        }).finally(function () {
+        });
+      }
+    }
+})
+</script>
 </html>
