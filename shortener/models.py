@@ -161,3 +161,10 @@ class BackOfficeLogs(TimeStampedModel):
     user_id = models.IntegerField(blank=True, null=True)
     ip = models.CharField(max_length=30, blank=True, null=True)
     status_code = models.IntegerField(blank=True, null=True)
+
+
+class DailyVisitors(models.Model):
+    visit_date = models.DateField()
+    visits = models.IntegerField(default=0)
+    totals = models.IntegerField(default=0)
+    last_updated_on = models.DateTimeField(auto_now=True)

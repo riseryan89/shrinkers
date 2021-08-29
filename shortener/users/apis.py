@@ -1,3 +1,4 @@
+from shortener.urls.decorators import admin_only
 from typing import List
 from shortener.schemas import Users as U
 from shortener.schemas import TelemgramUpdateSchema
@@ -9,6 +10,7 @@ user = Router()
 
 
 @user.get("", response=List[U])
+@admin_only
 def get_user(request):
     a = Users.objects.all()
     return list(a)

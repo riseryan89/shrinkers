@@ -1,3 +1,4 @@
+from shortener.ga import visitors
 from shortener.urls.decorators import admin_only
 from shortener.urls.telegram_handler import command_handler
 from django.utils.html import json_script
@@ -37,7 +38,8 @@ def url_redirect(request, prefix, url):
 @login_required
 @admin_only
 def url_list(request):
-    command_handler()
+    # command_handler()
+    visitors()
     return render(request, "url_list.html", {})
 
 
