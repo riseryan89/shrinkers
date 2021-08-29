@@ -18,7 +18,7 @@ from django.core.cache import cache
 class UrlListView(viewsets.ModelViewSet):
     queryset = ShortenedUrls.objects.order_by("-created_at")
     serializer_class = UrlListSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]  # permissions.IsAdminUser
 
     def create(self, request):
         # POST METHOD
@@ -45,21 +45,22 @@ class UrlListView(viewsets.ModelViewSet):
     @renderer_classes([JSONRenderer])
     def destroy(self, request, pk=None):
         # DELETE METHOD
-        
+
         queryset = self.get_queryset().filter(pk=pk, creator_id=request.user.id)
         print(pk, request.user.id)
         if not queryset.exists():
             raise Http404
         queryset.delete()
+        cache.delete(f"url_lists_{request.users_id}")
         url_count_changer(request, False)
         return MsgOk()
 
     def list(self, request):
         # GET ALL
-        queryset = cache.get('url_lists')
+        queryset = cache.get(f"url_lists_{request.users_id}")
         if not queryset:
             queryset = self.get_queryset().filter(creator_id=request.user.id).all()
-            cache.set('url_lists', queryset, 20)
+            cache.set(f"url_lists_{request.users_id}", queryset, 20)
         serializer = UrlListSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -70,7 +71,6 @@ class UrlListView(viewsets.ModelViewSet):
         new_history.record(request, queryset, {})
         return MsgOk()
 
-    
     @action(detail=True, methods=["get"])
     def get_browser_stats(self, request, pk=None):
         queryset = Statistic.objects.filter(

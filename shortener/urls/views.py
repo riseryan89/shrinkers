@@ -1,3 +1,4 @@
+from shortener.urls.decorators import admin_only
 from shortener.urls.telegram_handler import command_handler
 from django.utils.html import json_script
 from shortener.utils import get_kst, url_count_changer
@@ -10,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from ratelimit.decorators import ratelimit
 from datetime import datetime, timedelta
 from django.views.decorators.cache import never_cache
-from django.views.decorators.cache import cache_page
 
 
 @ratelimit(key="ip", rate="3/m")
@@ -35,6 +35,7 @@ def url_redirect(request, prefix, url):
 
 
 @login_required
+@admin_only
 def url_list(request):
     command_handler()
     return render(request, "url_list.html", {})

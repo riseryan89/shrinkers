@@ -15,6 +15,7 @@ class ShrinkersMiddleware:
                 request.users_id = get_user.id
 
         response = self.get_response(request)
+
         if request.method not in ["GET", "OPTIONS"]:
             try:
                 body = json.loads(request.body) if request.body else None
@@ -23,7 +24,7 @@ class ShrinkersMiddleware:
             endpoint = request.get_full_path_info()
             ip = (
                 request.headers["X-Forwarded-For"].split(",")[0]
-                if "x-forwarded-for" in request.headers.keys()
+                if "X-Forwarded-For" in request.headers.keys()
                 else request.META.get("REMOTE_ADDR", None)
             )
             # X-Forwarded-For: <supplied-value>,<client-ip>,<load-balancer-ip>
@@ -50,6 +51,6 @@ class ShrinkersMiddleware:
             body_list = b.split("=")
             if body_list[0] not in UNLOGGABLES:
                 rtn[body_list[0]] = body_list[1]
-            else: 
+            else:
                 rtn[body_list[0]] = "hidden"
         return rtn
