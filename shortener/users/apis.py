@@ -1,14 +1,16 @@
+from shortener.utils import send_email
 from django.shortcuts import get_object_or_404
 from shortener.urls.telegram_handler import send_chat
 from django.contrib.auth.models import User
 from shortener.urls.decorators import admin_only
 from typing import List
-from shortener.schemas import Message, TelegramSendMsgBody, UserRegisterBody, Users as U
+from shortener.schemas import SendEmailBody, Message, TelegramSendMsgBody, UserRegisterBody, Users as U
 from shortener.schemas import TelemgramUpdateSchema
 from shortener.models import JobInfo, Users
 from django.contrib.auth import login
 from ninja.router import Router
 from django.contrib.auth.decorators import login_required
+from time import time
 
 user = Router()
 
@@ -49,4 +51,14 @@ def send_telegram_to_user(request, body: TelegramSendMsgBody):
         user_id=users.id,
         additional_info={"telegram_id": users.telegram_username, "msg": body.msg},
     )
+    return 201, {"msg": "ok"}
+
+
+@user.post("send_email", response={201: Message})
+@login_required
+def send_email_to_user(request, body: SendEmailBody):
+    t = time()
+    user = get_object_or_404(Users, pk=body.users_id)
+    send_email(mailing_list=[user.full_name, user.user.email])
+    print(time() - t)
     return 201, {"msg": "ok"}
