@@ -168,3 +168,15 @@ class DailyVisitors(models.Model):
     visits = models.IntegerField(default=0)
     totals = models.IntegerField(default=0)
     last_updated_on = models.DateTimeField(auto_now=True)
+
+
+class JobInfo(TimeStampedModel):
+    class JOB_STATUS(models.TextChoices):
+        WAIT = "wait"
+        RUN = "run"
+        OK = "ok"
+        ERROR = "error"
+    job_id = models.CharField(max_length=255)
+    user_id = models.IntegerField(null=True)
+    additional_info = models.JSONField(null=True)
+    status = models.CharField(max_length=6, choices=JOB_STATUS.choices, default=JOB_STATUS.WAIT)
