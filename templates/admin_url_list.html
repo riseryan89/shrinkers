@@ -70,7 +70,7 @@
               <td scope="col">{{ u.creator.telegram_username }}</td>
               <td scope="col">{{ u.creator.organization.name }}</td>
               <td scope="col">{{ u.creator.organization.pay_plan.name }}</td>
-              <td scope="col">{{ u.statistic_set.all | get_count:"web_browser,Edge" }} 개</td>
+              {% comment %} <td scope="col">{{ u.statistic_set.all | get_count:"web_browser,Edge" }} 개</td> {% endcomment %}
             </tr>
             {% endfor %}
           </tbody>
