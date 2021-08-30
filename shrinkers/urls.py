@@ -17,8 +17,8 @@ from shortener.urls.views import url_redirect
 from shortener.urls.urls import router as url_router
 from shrinkers.settings import DEBUG
 
-# if DEBUG:
-#     import debug_toolbar
+if DEBUG:
+    import debug_toolbar
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
@@ -59,7 +59,7 @@ urlpatterns = [
     path("<str:prefix>/<str:url>", url_redirect),
 ]
 
-# if DEBUG:
-#     urlpatterns += [
-#         path("__debug__/", include(debug_toolbar.urls)),  # Django Debug Tool
-#     ]
+if DEBUG:
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),  # Django Debug Tool
+    ]

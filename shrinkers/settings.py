@@ -53,11 +53,10 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 20,
 }
 
-# if DEBUG:
-#     INSTALLED_APPS += [
-#         "debug_toolbar",
-#         "django_seed",
-#     ]
+if DEBUG:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -69,6 +68,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # 'django.middleware.cache.UpdateCacheMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django.middleware.common.CommonMiddleware",
     # 'django.middleware.cache.FetchFromCacheMiddleware',
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -158,14 +158,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = "/static/"
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, "shrinkers/service_key.json")
-)
-DEFAULT_FILE_STORAGE = "config.storage_backends.GoogleCloudMediaStorage"
-STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
-GS_STATIC_BUCKET_NAME = "shrinkers-bucket-fc"
-STATIC_URL = "https://storage.googleapis.com/{}/statics/".format(GS_STATIC_BUCKET_NAME)
+if DEBUG:
+    STATIC_URL = "/static/"
+else:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        os.path.join(BASE_DIR, "shrinkers/service_key.json")
+    )
+    DEFAULT_FILE_STORAGE = "config.storage_backends.GoogleCloudMediaStorage"
+    STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
+    GS_STATIC_BUCKET_NAME = "shrinkers-bucket-fc"
+    STATIC_URL = "https://storage.googleapis.com/{}/statics/".format(GS_STATIC_BUCKET_NAME)
 # Default primary key field type
 # pip install 'django-storages[google]'
 # pip install google-auth

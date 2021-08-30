@@ -45,8 +45,11 @@ class UrlListView(viewsets.ModelViewSet):
     @renderer_classes([JSONRenderer])
     def destroy(self, request, pk=None):
         # DELETE METHOD
-
-        queryset = self.get_queryset().filter(pk=pk, creator_id=request.users_id)
+        queryset = (
+            self.get_queryset().filter(pk=pk, creator_id=request.users_id)
+            if not request.user.is_superuser
+            else self.get_queryset().filter(pk=pk)
+        )
         if not queryset.exists():
             raise Http404
         queryset.delete()
