@@ -182,9 +182,10 @@ let vm = new Vue({
       table_draw: function () {
             let statTable = $('#stat_detail').DataTable({
                 dom: 'lBfrtip',
-                buttons: ['copy', 'excel', 'pdf'],
+                buttons: ['copy', 'excel', 'pdf', "print"],
                 responsive: true,
-                "order": [[ 0, "desc" ]]
+                "lengthMenu": [[10, 20, 30, -1], ["Ten", "이십", 30, "모두"]],
+                "order": [[ 0, "asc" ], [ 1, "asc" ]]
             });
       }
     },

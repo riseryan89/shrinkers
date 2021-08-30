@@ -70,24 +70,24 @@ def visitors():
             analytics = initialize_analyticsreporting()
             response = get_report(analytics)
             print(response)
-            # data = response["reports"][0]["data"]["rows"]
-            # today_str = today.strftime("%Y%m%d")
-            # yesterday_str = yesterday.strftime("%Y%m%d")
-            # for i in data:
-            #     get_value = int(i["metrics"][0]["totals"][0])
-            #     if i["dimensions"] == [today_str]:
-            #         todays = today_data.values("visits", "totals")[0]
-            #         if get_value > todays["visits"]:
-            #             DailyVisitors.objects.filter(visit_date__exact=today).update(
-            #                 visits=get_value,
-            #                 totals=todays["totals"] - todays["visits"] + get_value,
-            #                 last_updated_on=timezone.now(),
-            #             )
-            #     elif i["dimensions"] == [yesterday_str]:
-            #         yesterdays = yesterday_data.values("visits", "totals")[0]
-            #         if get_value > yesterdays["visits"]:
-            #             DailyVisitors.objects.filter(visit_date__exact=yesterday).update(
-            #                 visits=get_value,
-            #                 totals=yesterdays["totals"] - yesterdays["visits"] + get_value,
-            #                 last_updated_on=timezone.now(),
-            #             )
+            data = response["reports"][0]["data"]["rows"]
+            today_str = today.strftime("%Y%m%d")
+            yesterday_str = yesterday.strftime("%Y%m%d")
+            for i in data:
+                get_value = int(i["metrics"][0]["totals"][0])
+                if i["dimensions"] == [today_str]:
+                    todays = today_data.values("visits", "totals")[0]
+                    if get_value > todays["visits"]:
+                        DailyVisitors.objects.filter(visit_date__exact=today).update(
+                            visits=get_value,
+                            totals=todays["totals"] - todays["visits"] + get_value,
+                            last_updated_on=timezone.now(),
+                        )
+                elif i["dimensions"] == [yesterday_str]:
+                    yesterdays = yesterday_data.values("visits", "totals")[0]
+                    if get_value > yesterdays["visits"]:
+                        DailyVisitors.objects.filter(visit_date__exact=yesterday).update(
+                            visits=get_value,
+                            totals=yesterdays["totals"] - yesterdays["visits"] + get_value,
+                            last_updated_on=timezone.now(),
+                        )

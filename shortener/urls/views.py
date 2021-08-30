@@ -37,8 +37,6 @@ def url_redirect(request, prefix, url):
 
 @login_required
 def url_list(request):
-    # command_handler()
-    visitors()
     return render(request, "url_list.html", {})
 
 

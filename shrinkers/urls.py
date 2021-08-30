@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from shortener.scheduler import cron_jobs
 from shortener.urls.views import url_redirect
 from shortener.urls.urls import router as url_router
 from shrinkers.settings import DEBUG
@@ -63,3 +64,5 @@ if DEBUG:
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),  # Django Debug Tool
     ]
+
+cron_jobs()
