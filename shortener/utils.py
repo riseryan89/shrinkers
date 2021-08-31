@@ -36,7 +36,7 @@ email_content = """
 def send_email(**kwargs):
     mailing_list = kwargs.get("mailing_list", None)
     content = kwargs.get("content", None)
-    if mailing_list:
+    if mailing_list and EMAIL_ID and EMAIL_PW:
         yag = yagmail.SMTP({EMAIL_ID: "Shrinkers X 패캠"}, EMAIL_PW)
         # https://myaccount.google.com/u/1/lesssecureapps
         contents = [email_content.format(mailing_list[0])] if not content else content

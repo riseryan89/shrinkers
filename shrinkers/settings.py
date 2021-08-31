@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import json
 import os
 from pathlib import Path
 from google.oauth2 import service_account
@@ -121,8 +122,8 @@ DATABASES = {
     }
 }
 
-EMAIL_ID = ""
-EMAIL_PW = ""
+EMAIL_ID = os.environ.get("EMAIL", None)
+EMAIL_PW = os.environ.get("EMAIL_PW", None)
 
 
 # Password validation
@@ -164,8 +165,8 @@ USE_TZ = True
 if DEBUG:
     STATIC_URL = "/static/"
 else:
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-        os.path.join(BASE_DIR, "shrinkers/service_key.json")
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+        os.environ.get("GOOGLE_SERVICE_KEY", json.load(open(os.path.join(BASE_DIR, "shrinkers/service_key.json"))))
     )
     DEFAULT_FILE_STORAGE = "config.storage_backends.GoogleCloudMediaStorage"
     STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
