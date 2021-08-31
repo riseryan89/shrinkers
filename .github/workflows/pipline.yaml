@@ -1,8 +1,0 @@
-- uses: danielr1996/envsubst-action@1.0.0
-  env:
-    EMAIL: ${{ secrets.EMAIL }}
-    EMAIL_PW: ${{ secrets.EMAIL_PW }}
-    GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
-  with:
-    input: template.json
-    output: keys.json
