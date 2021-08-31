@@ -34,11 +34,11 @@ jobs:
         credentials: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Set Environment
-        env:
-          EMAIL: ${{ secrets.EMAIL }}
-          EMAIL_PW: ${{ secrets.EMAIL_PW }}
-          GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
-          
+      env:
+        EMAIL: ${{ secrets.EMAIL }}
+        EMAIL_PW: ${{ secrets.EMAIL_PW }}
+        GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
