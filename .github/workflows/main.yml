@@ -32,7 +32,7 @@ jobs:
         EMAIL: ${{ secrets.EMAIL }}
         EMAIL_PW: ${{ secrets.EMAIL_PW }}
         GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
-      - run: cat keys.json
+    - run: cat keys.json
 
     - name: Deploy to App Engine
       id: deploy
