@@ -1,7 +1,7 @@
 runtime: python39
 
 instance_class: B4
-service: shrinkers-service
+service: default
 basic_scaling:
   max_instances: 1
   idle_timeout: 10m
