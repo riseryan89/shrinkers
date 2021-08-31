@@ -57,6 +57,7 @@ def send_telegram_to_user(request, body: TelegramSendMsgBody):
 @user.post("send_email", response={201: Message})
 @login_required
 def send_email_to_user(request, body: SendEmailBody):
+    # Time : 2.4860658645629883
     t = time()
     user = get_object_or_404(Users, pk=body.users_id)
     send_email(mailing_list=[user.full_name, user.user.email])
@@ -67,7 +68,8 @@ def send_email_to_user(request, body: SendEmailBody):
 @user.post("send_email_schedule", response={201: Message})
 @login_required
 def send_email_to_user_schedule(request, body: SendEmailBody):
-    # raise ValueError
+    # 0.06657695770263672
+    raise ValueError
     t = time()
     users = get_object_or_404(Users, pk=body.users_id)
     JobInfo.objects.create(

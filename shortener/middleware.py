@@ -49,7 +49,7 @@ class ShrinkersMiddleware:
                     job_id=f"u-0-send_email",
                     user_id=request.users_id,
                     additional_info={"recipient": ["admin", ADMIN_EMAIL], "content": content },
-    )
+                )
 
         return response
 
