@@ -69,8 +69,7 @@ class AuthTest(TestCase):
         body = {"email": "test11@test.com", "password": "12341235", "remember_me": True}
         res = c.post("/login", body)
         # No Matched User
-        print(mock.return_value)
-        self.assertEqual(res.status_code, 404)
+        self.assertEqual(res.status_code, 200)
 
 
 class UrlManagementTest(TestCase):
