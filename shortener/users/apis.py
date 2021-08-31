@@ -69,7 +69,6 @@ def send_email_to_user(request, body: SendEmailBody):
 @login_required
 def send_email_to_user_schedule(request, body: SendEmailBody):
     # 0.06657695770263672
-    raise ValueError
     t = time()
     users = get_object_or_404(Users, pk=body.users_id)
     JobInfo.objects.create(
