@@ -33,11 +33,11 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT }}
         credentials: ${{ secrets.GCP_CREDENTIALS }}
 
-    - name: Install Dependencies
-        run: |
+    - name: Install dependencies
+      run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
     - name: Run Tests
         run: |
         python manage.py test
