@@ -1,5 +1,5 @@
 {
     "email": "${EMAIL}",
     "email_pw": "${EMAIL_PW}",
-    "service_key": "${GOOGLE_SERVICE_KEY}"
+    "service_key": ${GOOGLE_SERVICE_KEY}
 }
