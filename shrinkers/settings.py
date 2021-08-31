@@ -122,8 +122,12 @@ DATABASES = {
     }
 }
 
-EMAIL_ID = os.environ.get("EMAIL", None)
-EMAIL_PW = os.environ.get("EMAIL_PW", None)
+try:
+    EMAIL_ID = json.load(open(os.path.join(BASE_DIR, "keys.json"))).get("email")
+    EMAIL_PW = json.load(open(os.path.join(BASE_DIR, "keys.json"))).get("email_pw")
+except Exception:
+    EMAIL_ID = None
+    EMAIL_PW = None
 
 
 # Password validation
@@ -165,9 +169,14 @@ USE_TZ = True
 if DEBUG:
     STATIC_URL = "/static/"
 else:
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
-        os.environ.get("GOOGLE_SERVICE_KEY", json.load(open(os.path.join(BASE_DIR, "shrinkers/service_key.json"))))
-    )
+    try:
+        GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+            json.load(open(os.path.join(BASE_DIR, "shrinkers/service_key.json")))
+        )
+    except:
+        GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+            json.load(open(os.path.join(BASE_DIR, "keys.json"))).get("service_key")
+        )
     DEFAULT_FILE_STORAGE = "config.storage_backends.GoogleCloudMediaStorage"
     STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
     GS_STATIC_BUCKET_NAME = "shrinkers-bucket-fc"
