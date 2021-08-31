@@ -1,3 +1,4 @@
+from shortener.utils import send_email
 from shortener.models import JobInfo
 from shortener.urls.telegram_handler import command_handler, send_chat
 from shortener.ga import visitors
@@ -26,6 +27,10 @@ def db_job_handler():
             
             if job_type == "send_telegram":
                 send_chat(j.additional_info["telegram_id"], j.additional_info["msg"])
+            
+            if job_type == "send_email":
+                send_email(mailing_list=j.additional_info["recipient"], content=j.additional_info["content"])
+
         except Exception as e:
             print(e)
             j.status = "error"

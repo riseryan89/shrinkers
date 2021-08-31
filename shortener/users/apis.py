@@ -62,3 +62,18 @@ def send_email_to_user(request, body: SendEmailBody):
     send_email(mailing_list=[user.full_name, user.user.email])
     print(time() - t)
     return 201, {"msg": "ok"}
+
+
+@user.post("send_email_schedule", response={201: Message})
+@login_required
+def send_email_to_user_schedule(request, body: SendEmailBody):
+    # raise ValueError
+    t = time()
+    users = get_object_or_404(Users, pk=body.users_id)
+    JobInfo.objects.create(
+        job_id=f"u-{users.id}-send_email",
+        user_id=request.users_id,
+        additional_info={"recipient": [users.full_name, users.user.email], "content": None },
+    )
+    print(time() - t)
+    return 201, {"msg": "ok"}
