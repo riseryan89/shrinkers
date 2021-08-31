@@ -171,7 +171,7 @@ if DEBUG:
 else:
     SERVICE_KEY = json.load(open(os.path.join(BASE_DIR, "keys.json"))).get("service_key")
     GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
-        json.loads(SERVICE_KEY)
+        SERVICE_KEY
     )
     DEFAULT_FILE_STORAGE = "config.storage_backends.GoogleCloudMediaStorage"
     STATICFILES_STORAGE = "config.storage_backends.GoogleCloudStaticStorage"
